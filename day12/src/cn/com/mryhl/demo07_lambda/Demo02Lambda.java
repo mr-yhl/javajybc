@@ -29,5 +29,10 @@ public class Demo02Lambda {
                 System.out.println(Thread.currentThread().getName() + "执行了");
             }
         }).start();
+
+        // 使用lambda标准格式完成多线程
+        new Thread(()->{
+            System.out.println(Thread.currentThread().getName() + "执行了");
+        }).start();
     }
 }
