@@ -1,4 +1,4 @@
-package cn.com.mryhl.demo_digui;
+package cn.com.mryhl.demo03_digui;
 /*
 使用递归求阶乘
 求阶乘公式

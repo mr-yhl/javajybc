@@ -235,6 +235,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="E:/leetcode/leetcode/editor/cn/P337HouseRobberIii.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="E:/leetcode/leetcode/editor/cn/P337HouseRobberIii.java" />
+              <option name="questionId" value="337" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="E:/leetcode/leetcode/editor/cn/P342PowerOfFour.java">
           <value>
             <LeetcodeEditor>
@@ -624,6 +632,22 @@
             <LeetcodeEditor>
               <option name="path" value="E:/leetcode/leetcode/editor/cn/P面试题 01.06CompressStringLcci.java" />
               <option name="questionId" value="100161" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="E:/leetcode/leetcode/editor/cn/P面试题 08.06HanotaLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="E:/leetcode/leetcode/editor/cn/P面试题 08.06HanotaLcci.java" />
+              <option name="questionId" value="1000015" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="E:/leetcode/leetcode/editor/cn/P面试题 16.11DivingBoardLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="E:/leetcode/leetcode/editor/cn/P面试题 16.11DivingBoardLcci.java" />
+              <option name="questionId" value="100352" />
             </LeetcodeEditor>
           </value>
         </entry>

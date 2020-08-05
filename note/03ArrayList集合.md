@@ -348,3 +348,45 @@ public class Demo01Test {
       }
   }
 ```
+
+## 总结
+
+```java
+一. ArrayList集合
+	为什么使用ArrayList：数组具有定长性，如果使用数组保存数据不方便。所以有了集合。
+	概念：集合就是一个容器，这个容器中可以保存很多数据。
+	集合和数组区别：
+		1. 数组长度固定
+		   集合长度可变
+		   
+	    2. 数组可以保存任何类型的数据
+		   集合只能保存引用类型的数据。
+		   
+    集合的构造方法：
+		ArrayList()：使用空参数的构造方法创建出来的集合里面没有任何元素。
+		
+	集合的其他方法：
+		boolean add(E e)：向集合的末尾添加元素
+		void add(int index, E e)： 向指定索引位置添加元素
+		int size()：获取集合的大小。
+		E get(int index)：获取指定索引位置的元素。
+		E remove(int index)：根据索引删除元素，并返回被删除的元素
+		boolean remove(Object obj)：根据元素删除，如果删除成功返回true。
+		E set(int index, E e)：替换指定索引位置的元素，返回被替换的元素
+		
+	集合保存基本类型的数据：
+		集合只能存放引用类型的数据，如果需要保存基本类型，只能借助对应的包装类。
+		基本类型		包装类。
+		byte			Byte
+		short			Short
+		int				Integer
+		long			Long
+		float			Float
+		double			Double
+		boolean			Boolean
+		char			Character
+		
+二. 学生管理系统
+	练习
+```
+
