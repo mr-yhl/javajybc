@@ -56,6 +56,7 @@ public class Demo01Exception {
 
 在JDK7的时候，多了一种try...with...resource语句，可以快捷的处理io流中的异常以及施放资源的问题。
 格式：
+
 ```java
     try(创建流对象的代码）{
 
@@ -88,7 +89,7 @@ public class Demo02Exception {
 ### 3.try...with...resource语句注意事项
 
 try...with...resource语句
-在try小括号中创建的对象，必须要使用AutoCLoseable接口
+在try小括号中创建的对象，必须要实现AutoCLoseable接口
 
 + 接口实现类
 
@@ -127,7 +128,7 @@ java.util.Properties 继承于Hashtable ，来表示一个持久的属性集。�
 
 #### 1.2特点
 
-1. Properties实现JMap接口，拥有Map接口中的所有的方法。
+1. Properties实现了Map接口，拥有Map接口中的所有的方法。
 2. Properties没有泛型，键和值都是字符申。
 3. Properties可以从流【文件中】中读取键值对
 
@@ -546,3 +547,766 @@ public class Demo05Test {
 在windows 默认的编码
 最开始是默认的是GBK,后来2019年更新,更新之后windows文件的默认编码变成了UTF-8
 后期开发环境编码全局都是统一,统一使用utf-8
+
+### 1.引入
+
+使用FiLeReader读取GBK文件的内容
+FiLeReader会使用idea的歌认编码UTF-8的方式进行渎取,此时文件的编码是GBK,两种编码不一致,
+开是就产生了问题
+如采要指定编码进行渎取,那么可以使转换流去做
+
+```java
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+
+public class Demo01FileReader {
+    public static void main(String[] args) throws IOException {
+        // 创建字符输入流对象
+        Reader r = new FileReader("e:\\a.txt");
+        // 进行读取,一次一字符
+        int i;
+        while ((i = r.read())!=-1){
+            System.out.print((char) i);
+        }
+        r.close();
+    }
+
+}
+```
+
+### 2.InputStreamReader是转换流
+
+InputStreamReader是转换流，用来读，可以按照【指定编码】将文件中的数据读取到Java程序中
+InputStreamReader是字符流，会以字符为单位进行读取。
+
+#### 2.1InputStreamReader构造方法：
+
+​    InputStreamReader(InputStream in):参数要传递一个字节输入流，使用该构造方法创建的转换对象会使用idea默的编码（utf-8)进行读
+​    InputStreamReader(InputStream in, String charsetName):第一个参数是字节输入流，第二个参数是编码方式。可以指定编码进行读取。
+
+#### 2.2InputStreamReader其他方法
+
+​    InputStreamReader是字符流，所以里面读取的方法和字符流读取的方法一模一样。
+
+#### 2.3InputStreamReader按照指定编码读取步骤：
+
+​    1.创建转换流对象用来读取，并指定编码。
+​    2.调用read方法读取。
+​    3.施放资源。
+
+#### 2.4代码展示
+
+```java
+import java.io.FileInputStream;
+
+import java.io.InputStreamReader;
+
+public class Demo02InputStreamReader {
+    public static void main(String[] args) throws Exception {
+        readGBK();
+        readUTF8();
+    }
+
+    /*
+   读取UTF8编码文件
+    */
+    public static void readUTF8() throws Exception {
+        // 创建转换流对象,用来读取
+        // InputStreamReader isr = new InputStreamReader(new FileInputStream("e:\\b.txt"), "utf8");
+        InputStreamReader isr = new InputStreamReader(new FileInputStream("e:\\b.txt"));
+        // 开始读取
+
+        int i;
+        while ((i = isr.read())!=-1){
+            System.out.print((char) i);
+        }
+        isr.close();
+    }
+
+    /*
+    读取gbk编码文件
+     */
+    public static void readGBK() throws Exception {
+        // 创建转换流对象,用来读取
+        InputStreamReader isr = new InputStreamReader(new FileInputStream("e:\\a.txt"), "gbk");
+        // 开始读取
+
+        int i;
+        while ((i = isr.read())!=-1){
+            System.out.print((char) i);
+        }
+        isr.close();
+    }
+}
+```
+
+### 3.OutputStreamWriter是转换流
+
+OutputStreamWriter是转换流，用来写，可以将Java程序中的数据按照【指定编码】写到文件中。
+OutputStreamWriter属于字符流，会以字符为单位写数据。
+
+#### 3.1OutputStreamWriter构造方法：
+
+​        OutputStreamWriter(OutputStream out)：参数要传递字节输出流，将来会以idea默认编码(utf-8)去写数据。
+​        OutputStreamWriter(OutputStream out, String charsetName)：第一个参数是字节输出流，第二个参数是指定的编码方式。 该方法会按照指定编码写数据。
+
+#### 3.2OutputStreamWriter其他方法：
+
+​    OutputStreamWriter是字符流，所以里面写数据的方法和之前字符流写数据的方法一模一样
+
+#### 3.3OutputStreamWriter使用步骤：
+
+1.创建流对象，指定编码
+2.写数据
+3.刷新
+4.关闭
+
+#### 3.4代码实现
+
+```java
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+public class Demo03OutputStreamWrite {
+    public static void main(String[] args) throws Exception {
+        writer();
+        writerutf8();
+
+    }
+    /*
+    写utf8编码的数据
+     */
+    public static void writerutf8() throws Exception {
+        // 创建流对象
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("e:\\c1.txt"));
+        // 写数据
+        osw.write("你好");
+        // 刷新
+        osw.flush();
+        // 关闭
+        osw.close();
+    }
+    /*
+    写gbk编码的数据
+     */
+    public static void writer() throws Exception {
+        // 创建流对象
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("e:\\c.txt"), "gbk");
+        // 写数据
+        osw.write("你好");
+        // 刷新
+        osw.flush();
+        // 关闭
+        osw.close();
+    }
+
+}
+```
+
+## 第六章 序列化流
+
+### 1.ObjectOutputStream是序列化流
+
+ObjectOutputStream是序列化流，可以将Java程序中的对象写到文件中。
+
+#### 1.1ObjectOutputStream构造方法：
+
+​    ObjectOutputStream(OutputStream out):参数要传递字节输出流。
+
+#### 1.2ObjectOutputStream写对象的方法【特有方法】
+
+​    void writeObject(object obj):向文件中写对象。
+
+#### 1.3ObjectOutputStream使用步骤：
+
+​    1.创建流
+​    2.写对象
+​    3.关闭流
+要使用序列化流向文件中写的对象，必须要实现Serializable接口，否则就会抛出NotSerializableException异常
+
+```java
+import java.io.Serializable;
+/*
+Serializable里面没有任何东西,这个接口只是起到标记作用,必须实现接口后
+那么类的对象才可以被序列化，才可以写到文件中
+
+ */
+public class Person implements Serializable {
+    private String name;
+    private int age;
+
+    public Person() {
+    }
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+```
+
+```java
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
+public class Demo01ObjectOutputStream {
+    public static void main(String[] args) throws Exception {
+        // 1.创建流
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("day14\\file04.txt"));
+        // 2.写对象
+        Person p = new Person("东关定", 23);
+        oos.writeObject(p);
+        // 3.关闭流
+        oos.close();
+    }
+}
+```
+
+### 2.反序列化
+
+ObjectInputStream是反序列化流，可以将文件中的对象读取到Java程序中。
+
+#### 2.1ObjectInputStream构造方法：
+
+​    ObjectInputStream(InputStream in):参数要传递一个字节输入流。
+
+#### 2.2objectInputStream读取对象的方法【特有方法】：
+
+​    object readObject():从文件中读取对象。
+
+#### 2.3ObjectInputStream使用步骤：
+
+​    1.创建流
+​    2.读对象
+​    3.关闭流
+
+
+
+```java
+注意：如果使用反序列化流读取数据，如果读取的对象所属的类不存在，那么会报错。
+```
+
+#### 2.4代码实现
+
+```java
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
+public class Demo02ObjectInputStream {
+    public static void main(String[] args) throws Exception {
+        // 1.创建流
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("day14\\file04.txt"));
+        // 2.读对象
+
+        Object o = ois.readObject();
+        System.out.println(o);
+        // 3.关闭流
+        ois.close();
+    }
+}
+```
+
+### 3.序列化中的static和transient
+
+1. static修饰的成员变量无法序列化,static修饰的变量属于类，不属于对象，而序列化向文件中写的是对象。
+2. 如果我们不想某个属性被序列化，同时又不想使用static关键字。那么可以使用transient关键字,transient叫做瞬态，被transient修饰的属性无法被序列化。
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class Demo03StaticAndTransient {
+    public static void main(String[] args) throws Exception {
+        //writePerson();
+        readPerson();
+    }
+    /*
+    定义方法,读取
+     */
+    public static void readPerson() throws Exception{
+        // 1.创建流
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("day14\\d5.txt"));
+        // 2.读对象
+
+        Object o = ois.readObject();
+        System.out.println(o);
+        // 3.关闭流
+        ois.close();
+    }
+    /*
+    定义方法.写对象
+     */
+    public  static void writePerson() throws Exception {
+        // 创建序列化流
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("day14\\d5.txt"));
+        // 2.写对象
+        Person p = new Person("东关定", 23);
+        oos.writeObject(p);
+        // 3.关闭流
+        oos.close();
+
+
+    }
+}
+```
+
+### 4.序列化中的序列号
+
+当读取文件中的对象时，会对比文件中的序列号和当前类中的序列号是否一致，如果不一致，那么就会报错。
+解决方案，我们可以给类分配一个固定的序列号，不管这个类如何修改，这个序列号都不变。
+
+我们可以在类中提供一个属性叫做seriaLVersionUID,该属性就表示序列号
+    1.属性名必须叫做seriaLVersionUID
+    2.必须使用private static final修饰
+    3.必须是Long类型
+
+```java
+//提供属性，表示类的版本号（序列号）
+//该类的办版本号（序列号）永远是,不管怎么修改这个类，版本号（序列号）永远是
+private static final long serialVersionUID = 6078236425251693931l;
+```
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class Demo04SerialVersionUIDTest {
+    public static void main(String[] args) throws Exception {
+        //writePerson();
+        readPerson();
+    }
+    /*
+    定义方法,读取
+     */
+    public static void readPerson() throws Exception{
+        // 1.创建流
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("day14\\d5.txt"));
+        // 2.读对象
+
+        Object o = ois.readObject();
+        System.out.println(o);
+        // 3.关闭流
+        ois.close();
+    }
+    /*
+    定义方法.写对象
+     */
+    public  static void writePerson() throws Exception {
+        // 创建序列化流
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("day14\\d5.txt"));
+        // 2.写对象
+        Person p = new Person("东关定", 23);
+        oos.writeObject(p);
+        // 3.关闭流
+        oos.close();
+
+
+    }
+}
+```
+
+### 5.练习
+
+要求：
+    1.将存有多个学生对象的集合序列化操作，保存到List.txt文件中。
+    2.反序列化List.txt,并遍历集合，打印对象信息
+步骤:
+    1.创建集合，用来保存学生
+    2.添加三个学生
+    3.创建ObjectOutputStream序列化流，用来写对象
+    4.调用write方法，将集合写到文件中
+    5.释放资源
+    6.创建objectInputStream反序列化流，用来读
+    7.调用readObject方法读取对象
+    8.释放资源
+    9.遍历读取到的集合对象，输出里面的信息
+向文件中写集合时，集合的泛型类型也必须实现Serializable接口
+
+```java
+package cn.com.mryhl.demo06_objectstream;
+
+import java.io.Serializable;
+
+public class Student implements Serializable {
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+```
+
+```java
+package cn.com.mryhl.demo06_objectstream;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+
+
+ */
+public class Demo05Test {
+    public static void main(String[] args) throws Exception {
+        //1. 创建集合
+        List<Student> list = new ArrayList<>();
+        //2. 向集合中添加学生对象
+        list.add(new Student("东关", 18));
+        list.add(new Student("何塞荡", 19));
+        list.add(new Student("舒代达", 20));
+        //3. 创建序列化流对象
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("day14\\list.txt"));
+        //4. 将集合对象写到文件中。
+        oos.writeObject(list);
+        //5. 释放资源。
+        oos.close();
+        //6. 创建objectInputStream反序列化流，用来读
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("day14\\list.txt"));
+        //7. 从文件中读取集合对象。
+        List<Student> list2 = (List<Student>) ois.readObject();
+        //8. 关流
+        ois.close();
+        //9. 遍历集合，输出集合中的每一个学生对象
+        for (Student stu : list2) {
+            System.out.println(stu);
+        }
+    }
+}
+```
+
+## 7.打印流
+
+PrintStream是打印流
+
+### 1.打印流有以下特点：
+
+​    1.只有输出，没有输入。
+​    2.写数据十分方便。
+
+###  2.PrintStream构造方法：
+
+​    PrintStream(String fileName)：参数要传递字符串的文件路径。
+​    PrintStream(File file)：参数要传递File对象。
+​    PrintStream(OutputStream out)：参数要传递字节输出流。
+
+### 3.PrintStream特有的写数据的方法：
+
+​    void print(任何类型)： 写任何类型的数据。
+​    void println(任何类型)： 写任何类型的数据并自动换行。
+
+### 4.PrintStream的使用步骤：
+
+       1. 创建打印流对象
+    2. 调用方法写数据。
+    3. 释放资源
+
+### 5.代码实现
+
+```java
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
+public class Demo01PrintStream {
+    public static void main(String[] args) throws FileNotFoundException {
+        //1. 创建打印流对象
+        PrintStream ps = new PrintStream("day14\\file06.txt");
+        //2. 调用方法写数据。
+        //void print(任何类型)： 写任何类型的数据。
+        // ps.print("你好");
+        // ps.print("我好");
+        //void println(任何类型)： 写任何类型的数据并自动换行。
+        ps.println("你好");
+        ps.println("我好");
+
+        //3. 释放资源
+        ps.close();
+    }
+}
+```
+
+### 6.改变标准输出流的方向
+
+```java
+/*
+System.out.println中的system.out其实就是打印流
+System.out叫做标准输出流，该流的目的地是控制台。
+我们也可以通过system中的静态方法叫做setOut改变这个标准输出流的目的地。
+     static void setOut(PrintStream out)：重新改变System.out这个标准输出流的目的地。
+ */
+
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
+public class Demo02PrintStream {
+    public static void main(String[] args) throws FileNotFoundException {
+        //创建打印流
+        PrintStream ps = new PrintStream("day14\\file07.txt");
+        //调用System中的静态方法setOut，改变打印流的目的地
+        System.setOut(ps);
+
+        System.out.println("hello");
+    }
+}
+```
+
+## 第八章 装饰者模式
+
+装饰者模式
+    可以在不改变原有类，不使用继承的前提下，对一个类的功能进行增强。
+使用超级刘德华(装饰的类)对原来的刘德华(被装饰的类)进行增强（对刘德华的功能进行扩展）
+
+装饰者模式实现的原则：
+    1. 装饰的类和被装饰的类要实现同一个接口。
+    2. 在装饰类中接受被装饰类的对象。
+    3. 我们在需要增强的方法中直接写增强后的内容。
+    4. 如果某个方法不需要增强，直接通过被装饰的类调用该方法。
+
++ 明星接口
+
+```java
+// 明星
+public interface Start {
+    // 唱歌
+    public abstract void sing();
+    // 跳舞
+    void dance();
+}
+```
+
++ 普通实现类
+
+```java
+public class LiuDehua implements Start {
+    @Override
+    public void sing() {
+        System.out.println("刘德华唱忘情水");
+    }
+
+    @Override
+    public void dance() {
+        System.out.println("刘德华跳舞");
+    }
+}
+```
+
++ 增强实现类
+
+```java
+// 超级
+public class SuperLiuDehua implements Start{
+    // 接收一个被装饰(增强)的对象
+    private LiuDehua liudehua;
+    // 创建构造方法,用来接收外界传来的对象
+    public SuperLiuDehua(LiuDehua liudehua) {
+        this.liudehua = liudehua;
+    }
+    // 增强了
+    @Override
+    public void sing() {
+        System.out.println("超级刘德华在鸡窝唱歌,下面好的公鸡叫");
+    }
+    // 不对跳舞方法增强,直接通过普通的调用
+    @Override
+    public void dance() {
+        liudehua.dance();
+    }
+}
+```
+
++ 测试类
+
+```java
+public class Demo01Test {
+    public static void main(String[] args) {
+        // 创建对象
+        LiuDehua l = new LiuDehua();
+        //创建超级刘德华，对普通刘德华增强
+        SuperLiuDehua superLiuDeHua = new SuperLiuDehua(l);
+        //唱歌
+        superLiuDeHua.sing();
+        //跳舞
+        superLiuDeHua.dance();
+    }
+}
+```
+
+## 第九章 commons-io
+
+```java
+/*
+commons-io是由第三方（Apache）提供的IO流操作的工具包
+
+如果我们要使用第三方的工具包，一般要导入jar包
+jar包其实就是java的压缩包，里面保存了很多class文件。
+如果导入jar包后，这个jar包中的类就都可以使用了.
+
+导入jar包的步骤：
+    1. 新建一个文件夹叫做lib
+    2. 将jar包复制到lib文件夹下
+    3. 点lib文件夹右键选择 Add as Library
+
+
+IOUtils中的方法：
+    static int copy(InputStream input, OutputStream output)：复制文件。该方法适用于2G以下的文件。
+    static long    copyLarge(InputStream input, OutputStream output)复制文件。该方法适用于2G以上的文件。
+
+FileUtils中的方法：
+    static void    copyFileToDirectory(File srcFile, File destDir)：将文件(srcFile)复制到一个文件夹(destDir)中
+    static void    copyDirectoryToDirectory(File srcDir, File destDir)：将一个文件夹(srcDir)复制到另一个文件夹(destDir)中
+    static void    writeStringToFile(File file, String data)：向文件中写字符串数据
+    static String readFileToString(File file)：从文件中读取数据，并返回读取到的内容
+
+ */
+
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import java.io.FileOutputStream;
+
+public class Demo01Test {
+    public static void main(String[] args) throws Exception {
+        //IOUtils中的方法：
+        //static int copy(InputStream input, OutputStream output)：复制文件。该方法适用于2G以下的文件。
+        //IOUtils.copy(new FileInputStream("d:\\aa.png"), new FileOutputStream("d:\\bb.png"));
+
+        //FileUtils中的方法：
+        //static void copyFileToDirectory(File srcFile, File destDir)：将文件(srcFile)复制到一个文件夹(destDir)中
+        //FileUtils.copyFileToDirectory(new File("d:\\aa.png"), new File("d:\\iotest"));
+
+        //static void  copyDirectoryToDirectory(File srcDir, File destDir)：将一个文件夹(srcDir)复制到另一个文件夹(destDir)中
+        //FileUtils.copyDirectoryToDirectory(new File("d:\\iotest"), new File("d:\\aaa"));
+
+        //static void writeStringToFile(File file, String data)：向文件中写字符串数据
+        //FileUtils.writeStringToFile(new File("day14\\file08.txt"), "你好");
+
+        //static String readFileToString(File file)：从文件中读取数据，并返回读取到的内容
+    }
+}
+```
+
+
+
+## 总结
+
+```java
+IO流
+	作用：用来读写数据，比如上传，下载，复制
+	分类：
+		从类型角度：字节流，字符流
+		从流向角度：输入流，输出流。
+	顶层父类：
+		字节流	
+			字节输入流：InputStream
+			字节输出流：OutputStream
+		字符流
+			字符输入流：Reader
+			字符输出流：Writer
+			
+	字节流会以字节为单位读写
+	字符流会以字符为单位读写
+	
+	所有字节输入流读取的方法：
+		int read()：读取一个字节，如果读取结束返回-1
+		int read(byte[] bArr)：读取数据到字节数组中，返回读取到的字节个数，如果读取结束返回-1
+
+	所有字节输出流写的方法：
+		void write(int i)：写一个字节
+		void write(byte[] bArr)：写一个字节数组
+		void write(byte[] bArr, int off, int len)：写字节数组一部分
+	
+	所有字符输入流读取的方法
+		int read()：读取一个字符，如果读取结束返回-1
+		int read(char[] cArr)：读取数据到字符数组中，返回读取到的字符个数，如果读取结束返回-1
+		
+	所有字符输出流写的方法
+		void write(String str)：写字符串
+		void write(String str, int off, int len)：写字符串的一部分
+		void write(int i)：写一个字符
+		void write(char[] cArr)：写字符数组
+		void write(char[] cArr, int off, int len)：写字符数组的一部分
+
+所有流的使用步骤：
+	1. 创建流
+	2. 读或写
+	3. 关闭流
+	注意：如果是字符输出流，需要刷新。
+	
+流的使用步骤一样，只不过每种流的作用有所不同
+
+基本字节流：FileInputStream，FileOutputStream。  操作非文本文件，使用字节流。
+基本字符流：FileReader，FileWriter。	操作文本文件，会使用默认编码进行读写。
+缓冲流：BufferedInputStream，BufferedOutputStream，BufferedReader，BufferedWriter。    效率高，提高读写效率
+        BufferedReader特有方法：readLine，用于读取一行
+		BufferedWriter特有方法：newLine，跨平台换行
+转换流：InputStreamReader，OutputStreamWriter。  可以指定编码进行读写。
+序列化流：ObjectOutputStream，ObjectInputStream。  用来读写对象。
+		ObjectOutputStream特有方法：writeObject，用来写对象
+		ObjectInputStream特有方法：readObject，用来读取对象
+打印流：PrintStream		输出数据十分方便。
+		特有方法： print，println
+
+```
+
