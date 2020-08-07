@@ -21,3 +21,10 @@ This is a note-taking exercise class project for Basic Java learning, updating f
 Inside this folder are some basic Java syntax, including constants, variables, arrays, and so on.
 
 在此文件夹内存在的是java的一些基本的语法,包括常量,变量,数组等最基础的内容.
+
+## dayXX
+
+DayXX file stores the contents of the object since it faces the object, and the corresponding notes are stored in the Note folder. DayXX is one-to-one, you can first query the note file in the Note file to find the corresponding source code file content.
+
+dayXX文件存放的是自从面对对象以后的内容,其内容对应的笔记存在于note文件夹内,dayXX是一一对应的,可以先查询note笔记文件的中的笔记文件,在找对应的源代码文件内容.
+
