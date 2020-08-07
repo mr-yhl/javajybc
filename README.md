@@ -96,3 +96,188 @@ This day's content is primarily about the inheritance part.
    2. Matters needing attention  注意事项
 4. Template design pattern  模板设计模式
 5. final 关键字
+
+## [day05static 、接口、多态、内部类](https://github.com/mr-yhl/javajybc/tree/master/day05)
+
+This day is mainly about inheritance and implementation.
+
+这一天的内容主要还是继承实现的内容。
+
+1. static 
+2.  interface   接口
+   1. Abstract method  抽象方法
+   2. Default method   默认方法
+   3. Static method  静态方法
+3. polymorphism  多态
+   1. instanceof
+4. The inner class   内部类
+
+## [day06权限修饰符、代码块、常用API](https://github.com/mr-yhl/javajybc/tree/master/day06)
+
+- Permission modifier  权限修饰符
+- The code block  代码块
+  - Construction code block  构造代码块
+  - Static code block  静态代码块
+- Object类
+  - toString
+  - Equals
+  - Objects
+  - native本地方法
+- Date类
+  - getTime
+  - setTime
+  - DateFormat
+- Calendar类
+  - get
+  - set
+  - add
+- Math
+- System
+- BigInteger
+- BigDecimal
+- Arrays
+- A wrapper class   包装类
+  - Automatic packing and unpacking  自动装箱拆箱
+  - String conversion  字符串转换
+
+## [day07学生管理系统练习](https://github.com/mr-yhl/javajybc/tree/master/day07)
+
+## [day08Collection、List、泛型、数据结构](https://github.com/mr-yhl/javajybc/tree/master/day08)
+
++ collection  集合
++ iterator  迭代器
++ Strengthening for  增强for【重点】
++ generic  泛型
+  + a generic class  泛型类
+  + Generic methods   泛型方法
+  + Generic interface  泛型接口
+  + Generic wildcards  泛型通配符
++ Introduction to data structure  数据结构简介
++ List interface  List接口
+  + ArrayList
+  + LinkedList
++ Set small exercises  集合小练习
+
+## [day09Collections、Set、Map、斗地主排序](https://github.com/mr-yhl/javajybc/tree/master/day09)
+
++ Collections
+  + shuffle
+  + sort natural sort  sort自然排序
+  + comparator sort  比较器排序
+  + Variable parameter  可变参数[重]
+  + addall method  addall方法
++ the Set interface  Set接口
+  + hashCode
+  + hash table  哈希表
+  + other sets  其他集合
++ Map set (double column set)    map集合(双列集合)
+  + keySet()
+  + entrySet()
+
+
+
+## [day10排序算法、异常、多线程基础](https://github.com/mr-yhl/javajybc/tree/master/day10)
+
++ Plus bubble sort  冒泡排序 
++ selection sort  选择排序 
++ Binary search  二分查找 
++ Exception handling  异常处理
+  + throw、throws
+  + Objects
+  + try...catch...finally
++ Multithreading foundation  多线程基础
+  + Processes and threads  进程与线程
+  + Concurrency and parallelism  并发与并行
+  + methods in threads  线程里的方法
+  + Two ways to achieve multithreading  多线程的两种实现方法
+
+## [day11线程安全、volatile关键字、原子性、并发包](https://github.com/mr-yhl/javajybc/tree/master/day11)
+
++ high concurrency  高并发
++ Thread safety  线程安全
+  + visibility  可见性
+  + order  有序性
+  + atomic  原子性
++ volatile关键字
+  + Resolve visibility  解决可见性
+  + Solve order  解决有序性
++ Atomic classes  原子类
+  + CAS[Optimistic lock]  CAS[乐观锁]
++ synchronized
+  + Synchronization block [Pessimistic lock]  同步代码块[悲观锁]
+  + Synchronized methods  同步方法
++ And contract  并发包
+  + CopyOnWriteArrayList
+  + CopyOnWriteArraySet
+  + Hashtable
+  + CountDownLatch
+  + CyclicBarrier
+  + Semaphore
+  + Exchanger
+
+## [day12线程池、死锁、线程状态、等待与唤醒](https://github.com/mr-yhl/javajybc/tree/master/day12)
+
++ The thread pool  线程池
+  + Executor
+  + ExecutorService
+  + Executors
++ a deadlock  死锁
++ the state of the thread  线程的状态
+  + wait () to wait  wait()等待
+  + notify()唤醒
++ Timer Timer  定时器Timer
++  Lambda expression  Lambda表达式
++ Stream
+  + A single-column collection gets the stream  单列集合获取流
+  + The two-column collection gets the stream  双列集合获取流
+  + forEach
+  + filter
+  + Count
+  + Linit
+  + skip
+  + concat
+  + Map
+  + Collect arrays, collections  收集到数组、集合
+
+## [day13File类、递归、字节流、字符流](https://github.com/mr-yhl/javajybc/tree/master/day13)
+
++ file class  file类
+  + acquisition method  获取方法
+  + Judgment method  判断方法
+  + create method  创建方法
+  + delete method  删除方法
++ recursion  递归
++ byte stream  字节流
+  + input stream  输入流
+  + the output stream  输出流
++ character stream  字符流
+  + input stream  输入流
+  + the output stream  输出流
+
+## [day14Properties类、缓冲流、转换流、序 列化流、装饰者模式、commons-io工具包](https://github.com/mr-yhl/javajybc/tree/master/day14)
+
++ IO resource processing   IO资源的处理
++ Properties class  Properties类
++ ResourceBundle
++ buffer flow  缓冲流
+  + Byte buffer stream  字节缓冲流
+    + Byte input buffered stream  字节输入缓冲流
+    + Byte output buffered stream  字节输出缓冲流
+  + character buffer stream   字符缓冲流
+    + character input buffered stream  字符输入缓冲流
+    + character output buffered stream   字符输出缓冲流
++ transformation flows  转换流
+
+## [day15JUnit单元测试、网络编程](https://github.com/mr-yhl/javajybc/tree/master/day15)
+
+This day is mainly to practice unit testing content, as well as network programming content.
+
+这一天主要是练习单元测试的内容,以及网络编程的内容。
+
++ JUnit unit tests   JUnit单元测试
++ Network programming  网络编程
+  + IP: The unique identity of a device in a network.   IP：在网络中对于设备的唯一标识。
+  + 端口：在计算机中对应应用程序的唯一标识。
+  + Port: The unique identity of the corresponding application on the computer.      TCP protocol code   TCP协议代码：
+    + Socket：(Presentation client)表示客户端  
+    + ServerSocket：(Presentation server)表示服务器。
