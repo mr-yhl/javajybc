@@ -281,3 +281,29 @@ This day is mainly to practice unit testing content, as well as network programm
   + Port: The unique identity of the corresponding application on the computer.      TCP protocol code   TCP协议代码：
     + Socket：(Presentation client)表示客户端  
     + ServerSocket：(Presentation server)表示服务器。
+
+## [day16NIO,AIO](https://github.com/mr-yhl/javajybc/tree/master/day16)
+
+Today, we're talking about some of the parts of the nioo and aio section, and we're going to do a lot of what that does.
+
+今天主要讲述了NIO,AIO部分的一些内容,大体了解了这些有什么作用.
+
++ NIO
+  + Synchronous and asynchronous   同步和异步
+  + Blocking and non-blocking  阻塞和非阻塞
++ BUffer
+  + allocate
+  + allocateDirect
+  + wrap
+  + put
+  + limit
+  + mark
+  + position
+  + flip
+  + clear
++ Channel
+  + FileChannel
+  + SocketChannel
+  + ServerSocketChannel
++ Selector
++ AIO

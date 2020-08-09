@@ -4,11 +4,23 @@
 
 + NIO
   + 同步和异步
-+ 
-
-
-
-
+  + 阻塞和非阻塞
++ BUffer
+  + allocate
+  + allocateDirect
+  + wrap
+  + put
+  + limit
+  + mark
+  + position
+  + flip
+  + clear
++ Channel
+  + FileChannel
+  + SocketChannel
+  + ServerSocketChannel
++ Selector
++ AIO
 
 ## 第一章 NIO
 
@@ -510,27 +522,28 @@ public class Demo01Client {
 
 ## 第四章 Selector
 
-```java
-/*
+
 
 Selector 选择器可以实现多路复用的效果。我们可以使用一个Selector监听三个服务器的状态，哪个服务器有请求来了，
 那么就让这个服务器去处理请求
-如何获取Selector
-    使用Selector中的open方法获取
-        static Selector open():获取选择器。
-如何将通道注册到选择器：
-    通道.configureBLocking(false):如果要选择器监听服务器通道，必须要将服务器设置为非阻塞。
-    SelectionKey register(Selector selector,int ops):参数selector表示将通道注册到哪个选择器,参数SelectionKey.OP_ACCEPT表示监听服务器就绪事件。
 
+### 1.如何获取Selector
 
-Selector选择器中的方法：
-    Set<SelectionKey> keys():获取已经注册到选择器的通道（编号）,放入到Set集合中返回。
-    Set<SelectionKey> selectedKeys():获取已经连接的通道（编号）,放入到Set集合中返回
-    int select():调用select后，程序会等者，一直到有客户端来连接。
+使用Selector中的open方法获取
+static Selector open():获取选择器。
 
+### 2.如何将通道注册到选择器：
 
- */
+通道.configureBLocking(false):如果要选择器监听服务器通道，必须要将服务器设置为非阻塞。
+SelectionKey register(Selector selector,int ops):参数selector表示将通道注册到哪个选择器,参数SelectionKey.OP_ACCEPT表示监听服务器就绪事件。
 
+### 3.Selector选择器中的方法：
+
+Set<SelectionKey> keys():获取已经注册到选择器的通道（编号）,放入到Set集合中返回。
+Set<SelectionKey> selectedKeys():获取已经连接的通道（编号）,放入到Set集合中返回
+int select():调用select后，程序会等者，一直到有客户端来连接。
+
+```java
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -640,4 +653,150 @@ public class Demo02Client {
         }).start();
     }
 }
+```
+
+## 第五章 AIO
+
+
+
+### １.AIO 异步非阻塞IO
+
+AsynchronousSocketChannel:TCP客户端异步通道
+AsynchronousServerSocketChannel:TCP服务器异步通道
+AsynchronousFileChannel:文件异步通道
+AsynchronousDatagramChannel:UDP异步通道
+
+```java
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.util.concurrent.Future;
+public class Demo01Client {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        // 获取客户端异步通道
+        AsynchronousSocketChannel socketChannel = AsynchronousSocketChannel.open();
+        // 连接服务器
+        Future<Void> future = socketChannel.connect(new InetSocketAddress("localhost", 8888));
+        // 如果没有建立连接,那么就做一些其他事情
+        if (!future.isDone()){
+            Thread.sleep(1000);
+        }
+        // 让客户端给服务器发数据
+        // 准备缓冲区
+        ByteBuffer buffer = ByteBuffer.wrap("你好".getBytes());
+        socketChannel.write(buffer);
+        // 释放资源
+        socketChannel.close();
+    }
+}
+```
+
+
+
+###　2.AsynchronousServerSocketChannel  TCP服务器异步通道
+
+ 
+
+// 异步服务器
+
+```java
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousServerSocketChannel;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+public class Demo02Server {
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+        // 获取异步服务器通道
+        AsynchronousServerSocketChannel serverSocketChannel = AsynchronousServerSocketChannel.open();
+        // 绑定端口号
+        serverSocketChannel.bind(new InetSocketAddress(8888));
+        // 监听客户端的请求
+        Future<AsynchronousSocketChannel> future = serverSocketChannel.accept();
+        // 调用get方法获取监听到的客户端的AsynchronousSocketChannel
+        AsynchronousSocketChannel socketChannel = future.get();
+        // 获取客户端发送过来的数据
+        // 创建缓冲区
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        // 调用read方法读取]
+        Future<Integer> future1 = socketChannel.read(byteBuffer);
+        //判断
+        if (!future1.isDone()){
+            Thread.sleep(2000);
+        }
+        // 缩小limit限制
+        byteBuffer.flip();
+        // 输出读取到是结果
+        System.out.println(new String(byteBuffer.array(), 0, byteBuffer.limit()));
+        socketChannel.close();
+        serverSocketChannel.close();
+    }
+}
+```
+
+## 总结
+```java
+【代码不需要掌握】
+
+一. 同步异步，阻塞非阻塞
+	
+	同步和异步(线程间的通信机制)
+        同步：线程在完成某个功能时，必须等待这个功能执行完才可以继续往下执行。
+        异步：线程在完成某个功能时，不用等到这个功能结束也可以去做其他事情。等到该功能结束后，系统会通知线程该功能执行完了。
+	
+	阻塞和非阻塞（线程间的状态）
+		阻塞：线程在执行任务时，会挂起。
+        非阻塞：线程在执行任务时，不会挂起，可以继续去干其他的事情。
+		
+	
+	BIO：同步阻塞IO
+	NIO：同步非阻塞IO
+	AIO：异步非阻塞IO。
+	
+		
+	NIO，AIO基于Buffer，Channel，Selector
+	
+二. Buffer
+	
+	ByteBuffer三种创建方式：
+        static ByteBuffer allocate(int capacity)：创建一个字节缓冲区并返回，参数是缓冲区的长度。【间接缓冲区】
+        static ByteBuffer allocateDirect(int capacity) ：创建一个字节缓冲区并返回，参数是缓冲区的长度。【直接缓冲区】
+        static ByteBuffer wrap(byte[] array)：将字节数组转成ByteBuffer【间接缓冲区】
+
+	ByteBuffer其他方法：
+		ByteBuffer put(byte b)：向当前位置添加一个字节
+        ByteBuffer put(byte[] src)：向当前位置添加字节数组
+        ByteBuffer put(byte[] src, int offset, int length)：向当前位置添加字节数组的一部分。参数offset表示从哪个位置添加，参数length表示添加几个。
+		int capacity()：获取缓冲区的容量。
+		int limit()：获取缓冲区的限制。
+        Buffer limit(int newLimit)：设置缓冲区的限制，参数表示新的限制，比如参数是5，就只能使用缓冲区中的5个元素
+		int position()：获取此缓冲区的位置
+        Buffer position(int newPosition)：设置缓冲区的位置，参数表示新的位置。
+		Buffer mark()：对当前的position位置进行标记。
+        Buffer reset()：将position位置恢复到之前标记的位置。
+		Buffer flip()：缩小limit的范围
+            a. 将limit设置到position位置。
+            b. 将position位置设置为0
+            c. 丢弃mark标记
+        Buffer clear()：还原缓冲区的状态
+            a. 将limit设置到capacity
+            b. 将position位置设置为0
+            c. 丢弃mark标记
+			
+三. Channel
+	NIO中数据，就是通过通道进行读写的，通道是双向的，每一个通道里面都有读以及写的方法。
+
+	FileChannel可以对文件进行操作
+	SocketChannel：TCP的客户端通道
+	ServerSocketChannel：TCP服务器通道
+		
+四. Selector
+	作用：可以实现多路复用的效果， 使用一个Selector监听三个服务器的状态，哪个服务器有请求了，就让哪个服务器处理请求
+	
+五. AIO
+	异步非阻塞IO，线程在执行读取，或者监听操作时，可以不用等着这些操作完成，可以先去做其他事情。
 ```
