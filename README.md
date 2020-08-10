@@ -307,3 +307,26 @@ Today, we're talking about some of the parts of the nioo and aio section, and we
   + ServerSocketChannel
 + Selector
 + AIO
+
+## [day17反射,注解,动态代理](https://github.com/mr-yhl/javajybc/tree/master/day17)
+
+Today's lesson is about reflection, getting Class objects, getting constructors, getting member variables, and so on.You also learned about dynamic proxies, which require you to understand the methods of dynamic proxies.
+
+今日内容主要是学习反射,学会获取Class对象,获取构造方法,获取成员变量等内容。还学习了关于动态代理的内容,要求可以看懂动态代理的方法.
+
++ reflection  反射
+
+  + loader   加载器
+  + Class loading mechanism   类加载机制
+
+  + class object acquisition  class对象获取
+  + Common methods  常用方法
+  + Gets the constructor by reflection   通过反射获取构造方法
+  + Gets the member method by returning   通过返回获取成员方法
+
++  annotation   注解
+
+  + Target
+  + Retention
+
++ Dynamic agent   动态代理
