@@ -10,7 +10,7 @@ Buffer叫做缓冲区，本质是由数组组成的。
     ByteBuffer
     CharBuffer
     DoubleBuffer
-    FLoatBuffer
+    FloatBuffer
     IntBuffer
     LongBuffer
     ShortBuffer
