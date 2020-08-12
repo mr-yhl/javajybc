@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<books>
+    <book id="0001">
+        <name>Java开发教程</name>
+        <author>张小娴</author>
+        <sale>100.00</sale>
+    </book>
+    <book id="0002">
+        <name>三国演义</name>
+        <author>罗贯中</author>
+        <sale>160.09</sale>
+    </book>
+
+</books>

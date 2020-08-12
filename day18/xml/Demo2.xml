@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    persons是根元素,一个xml中只能有一个根元素
+    person是persons的子元素
+    每一个person标签都有两个属性,分别是name和age
+-->
+<persons>
+    <person name="郑大索" age="18"></person>
+    <person name="东关萨" age="16"></person>
+    <person name="席八燮" age="20"></person>
+</persons>

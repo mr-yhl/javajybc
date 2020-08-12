@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--        如果要在xml中表示特殊符号,需要转义字符.
+    <: &lt;
+    >: &gt;
+    ": &quot;
+    ': &apos;
+    &: &amp-->
+<root>
+    hello
+    1 &lt; 2
+</root>

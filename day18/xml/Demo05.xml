@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    xmL的写法是非常灵活的，但是很多情况下太灵活也不是一件好事。所以我们要给xmL定义一个规范，规范一下xml中应该写什么内容.
+    这个规范就是约束
+
+    约束可以限制元素的名字,属性,元素体,元素的顺序等等写法.
+    xml约束有两种:dtd, schema
+    学习目标:要根据xml约束编写xml文档.
+-->
+<persons>
+    <person name="三房" age="16"></person>
+    <person name="山速" age="26"></person>
+    <person name="大打" age="18"></person>
+    <dog name="bigYello" age="3"></dog>
+</persons>

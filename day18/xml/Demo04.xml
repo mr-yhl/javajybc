@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+<![CDATA[
+     public static void main(String[] args) {
+            System.out.println(1 < 2);
+            System.out.println(1 > 2);
+            System.out.println(1 & 2);
+        }
+]]>
+</root>

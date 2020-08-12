@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    <书架 xmlns="http://www.itcast.cn"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.itcast.cn bookshelf.xsd"
+    >
+    xmlns="http://www.itcast.cn"
+    表示引入过来的schema文件的名称空间
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    引入的w3c官方的内容,固定写法
+
+    xsi:schemaLocation="http://www.itcast.cn bookshelf.xsd"
+    引入的schema文件的位置
+    格式: 名称空间 位置
+
+
+    名称空间
+        隐式名称空间(我们之前用的都是隐式名称空间)
+        显式名称空间(我们给名称空间起一个别名,通过别名去使用元素)
+            xmlns:别名 = "名称空间"
+        使用方式:
+            <别名:元素名>
+-->
+<别名:书架 xmlns:别名="http://www.itcast.cn"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.itcast.cn bookshelf.xsd"
+>
+    <别名:书>
+        <别名:书名>西游记</别名:书名>
+        <别名:作者>吴承恩</别名:作者>
+        <别名:售价>89.7</别名:售价>
+    </别名:书>
+</别名:书架>
