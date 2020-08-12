@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    传智播客DTD教学实例文档，将注释中的以下内容复制到要编写的xmL的声明下面
+    复制内容如下：
+    <!DOCTYPE books SYSTEM "bookshelf.dtd">
+    -->
+<!ELEMENT books (book+)>
+<!ELEMENT book (name,author,date,price)><!--约束元素书的子元素必须为书名、作者、售价-->
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
