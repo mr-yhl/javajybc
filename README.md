@@ -353,3 +353,16 @@ Today, I mainly learned the content of XML description document, mainly includin
 
   + Base64
 
+## [day19单多例模式,枚举,正则,工厂模式](https://github.com/mr-yhl/javajybc/tree/master/day19)
+
+Today's content focuses on regular expressions, enumeration types, and so on.
+
+今天的内容主要式正则表达式,枚举类型等内容.
+
++ single column mode  单列模式
+  + LanHanShi   懒汉式
+  + the hungry   饿汉式
++ Multi-case pattern   多例模式
++ enumeration   枚举
++ Factory mode    工厂模式
++ regular expression   正则表达式

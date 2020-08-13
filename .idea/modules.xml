@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/day17/day17.iml" filepath="$PROJECT_DIR$/day17/day17.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day18/day18.iml" filepath="$PROJECT_DIR$/day18/day18.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testleetcode_ex/testleetcode_ex.iml" filepath="$PROJECT_DIR$/testleetcode_ex/testleetcode_ex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/javajybc.iml" filepath="$PROJECT_DIR$/javajybc.iml" />
     </modules>
   </component>
 </project>
